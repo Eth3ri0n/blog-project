@@ -20,7 +20,7 @@ This project is a simple and intuitive blog designed for writers and readers ali
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/Eth3ri0n/blog-project.git
 ```
 
 Go to the project directory
