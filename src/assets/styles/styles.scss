@@ -1,0 +1,32 @@
+@use 'base';
+@use 'classes';
+@use 'media-queries' as *;
+@use 'reset';
+@use 'utils';
+@use 'variables';
+
+.container {
+  min-height: 100vh;
+  display: grid;
+  grid:
+    'header' auto
+    'content' 1fr
+    'footer' auto /
+    1fr;
+}
+
+header {
+  grid-area: header;
+  background: #000;
+  padding: 20px;
+}
+
+.content {
+  grid-area: content;
+  padding: 20px;
+}
+
+footer {
+  grid-area: footer;
+  padding: 20px;
+}
