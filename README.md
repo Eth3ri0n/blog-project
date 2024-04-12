@@ -12,7 +12,7 @@ This project is a simple blog. It allows users to post|read their own articles. 
 
 **Client:** HTML, SASS, Javascript Vanilla
 
-**Server:** Node
+**Server:** REST API
 
 
 ## Run Locally
