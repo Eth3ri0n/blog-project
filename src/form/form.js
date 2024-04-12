@@ -1,6 +1,7 @@
 /**
  * Importing styles and SCSS files.
  */
+
 import '../assets/styles/styles.scss';
 import './form.scss';
 
@@ -26,20 +27,34 @@ let errors = [];
  * Event listener for form submission.
  * @param {Event} event - The submit event.
  */
-FORM.addEventListener('submit', (event) => {
+FORM.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const FORMDATA = new FormData(FORM);
     const OBJECTDATA = Object.fromEntries(FORMDATA.entries());
     if (FORM_IS_VALID(OBJECTDATA)) {
-        const JSONDATA = JSON.stringify(OBJECTDATA);
+        try {
+            const JSONDATA = JSON.stringify(OBJECTDATA);
+            const RESPONSE = await fetch('https://restapi.fr/api/articles', {
+                method: 'POST',
+                body: JSONDATA,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const DATA = await RESPONSE.json();
+                console.log(DATA);
+        } catch (error) {
+            console.error('error :', error);
+        }
     }
 });
 
 /**
  * Checks if the form data is valid.
+ *
  * @param {Object} data - The form data object.
- * @returns {boolean} - True if the form data is valid, false otherwise.
+ * @returns {boolean} - Returns true if the form data is valid, otherwise false.
  */
 const FORM_IS_VALID = (data) => {
     if (!data.title || !data.category || !data.content || !data.author) {
@@ -53,7 +68,9 @@ const FORM_IS_VALID = (data) => {
             errorHTML += `<li>${error}</li>`;
         });
         ERRORELEMENT.innerHTML = errorHTML;
+        return false;
     } else {
         ERRORELEMENT.innerHTML = '';
+        return true;
     }
 };
