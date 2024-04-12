@@ -1,13 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/assets/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/assets/img/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog</title>
+    <title>My Blog</title>
+
+    <!-- Add the following link tag to the head element -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <a href="../">Home</a>
-    <script type="module" src="./form.js"></script>
+    <div class="container">
+      <header>
+        <a href="/" class="header-brand">Blog</a>
+        <nav>
+          <ul>
+            <li><a href="/" class="header-nav">Home</a></li>
+            <li><a href="./form.html" class="header-nav active">New Article</a></li>
+          </ul>
+      </header>
+      <div class="content">
+        <form id="form" class="form">
+          <h2 class="title-underline">New Article</h2>
+          <div class="form-control">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" />
+          </div>
+          <div class="form-control">
+            <label for="category">Category</label>
+            <input type="url" id="category" name="category" />
+          </div>
+          <div class="form-control">
+            <label for="content">Content</label>
+            <textarea id="content" name="content"></textarea>
+          </div>
+          <div class="form-control">
+            <label for="author">Author</label>
+            <input type="text" id="author" name="author" />
+          </div>
+          <div class="form-btn-container">
+            <button class="btn btn-accent">Cancel</button>
+            <button class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+      <footer>&copy; Blog | 2024</footer>
+    </div>
+    <script type="module" src="form.js"></script>
   </body>
 </html>
