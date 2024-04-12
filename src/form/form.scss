@@ -1,3 +1,57 @@
-a {
-  color: cadetblue;
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  form {
+    width: 700px;
+    padding: 4rem;
+    box-shadow: var(--box-shadow);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+
+    .form-control {
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-size: 1.8rem;
+        color: var(--accent-color);
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      input,
+      textarea {
+        padding: 1rem;
+        font-size: 1.6rem;
+        border: 1px solid var(--divider-color);
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        outline: none;
+
+        &:focus {
+          border-color: var(--primary-color);
+        }
+      }
+
+      textarea {
+        min-height: 20rem;
+      }
+    }
+    .form-btn-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      .btn {
+        margin-left: 1rem;
+      }
+    }
+  }
 }
