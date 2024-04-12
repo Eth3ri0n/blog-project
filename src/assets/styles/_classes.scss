@@ -44,3 +44,9 @@
     color: var(--primary-color);
   }
 }
+
+.text{
+  &-error {
+    color: var(--error-color);
+  }
+}
