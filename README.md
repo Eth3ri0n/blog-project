@@ -1,6 +1,6 @@
 # Blog Project
 
-This project is a simple and intuitive blog designed for writers and readers alike. It allows users to post their own articles, read other users' articles, and interact with them through comments. The blog is built with a tech stack that includes HTML, SASS, and Vanilla Javascript for the client, and Node for the server. This project is ideal for those looking to share their thoughts and ideas with the world, or simply for those looking to get hands-on experience with full-stack web development.
+This project is a simple blog. It allows users to post|read their own articles. The blog is built with a tech stack that includes HTML, SASS, and Vanilla Javascript for the client, and Node for the server.
 
 
 ## License
