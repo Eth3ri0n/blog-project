@@ -4,6 +4,7 @@
 
 import '../assets/styles/styles.scss';
 import './form.scss';
+import '/assets/js/topbar';
 
 /**
  * The form element.
@@ -43,7 +44,6 @@ FORM.addEventListener('submit', async (event) => {
                 },
             });
             const DATA = await RESPONSE.json();
-                console.log(DATA);
         } catch (error) {
             console.error('error :', error);
         }
