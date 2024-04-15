@@ -1,13 +1,11 @@
 import './assets/styles/styles.scss';
 import './index.scss';
+import '/assets/js/topbar.js';
 
 const ARTICLECONTAINERELEMENT = document.querySelector('.articles-container');
 
+// Create articles.
 const createArticles = (articles) => {
-  // if (!Array.isArray(articles)) {
-  //     console.error('Expected articles to be an array but received', articles);
-  //     return;
-  // }
   const articlesDOM = articles.map((article) => {
     const articleDOM = document.createElement('div');
     articleDOM.classList.add('article');
@@ -26,10 +24,10 @@ const createArticles = (articles) => {
         `;
     return articleDOM;
   });
-  console.log(articlesDOM);
   ARTICLECONTAINERELEMENT.innerHTML = '';
   ARTICLECONTAINERELEMENT.append(...articlesDOM);
 
+  // Add event listeners to delete buttons.
   const deleteButtons = ARTICLECONTAINERELEMENT.querySelectorAll('.btn-danger');
   deleteButtons.forEach((button) => {
     button.addEventListener('click', async (event) => {
@@ -44,7 +42,6 @@ const createArticles = (articles) => {
         );
         const body = await response.json();
         fetchArticle();
-        console.log(body);
       } catch (error) {
         console.error('error :', error);
       }
@@ -52,6 +49,7 @@ const createArticles = (articles) => {
   });
 };
 
+// Fetch articles from the API.
 const fetchArticle = async () => {
   try {
     const response = await fetch('https://restapi.fr/api/blog');
@@ -59,7 +57,6 @@ const fetchArticle = async () => {
     if (!Array.isArray(articles)) {
       articles = [articles];
     }
-    // console.log(articles);
     createArticles(articles);
   } catch (error) {
     console.error('error : ', error);
