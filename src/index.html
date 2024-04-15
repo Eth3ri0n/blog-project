@@ -7,7 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Blog</title>
 
-  <!-- Add the following link tag to the head element -->
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
@@ -18,11 +23,15 @@
   <div class="container">
     <header>
       <a href="/" class="header-brand">Blog</a>
-      <nav>
+      <nav class="header-menu">
         <ul>
           <li><a href="/" class="header-nav active">Home</a></li>
           <li><a href="./form/form.html" class="header-nav">New Post</a></li>
         </ul>
+        <div class="header-menu-icon">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
     </header>
     <div class="content">
       <div class="articles-container"></div>
