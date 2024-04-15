@@ -4,7 +4,8 @@
   align-items: center;
 
   form {
-    width: 700px;
+    max-width: 700px;
+    width: 100%;
     padding: 4rem;
     box-shadow: var(--box-shadow);
     border-radius: 5px;
