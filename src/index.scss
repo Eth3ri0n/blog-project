@@ -1,3 +1,5 @@
+@import 'assets/styles/media-queries';
+
 .content {
   display: flex;
   justify-content: center;
@@ -10,6 +12,9 @@
     .article {
       background-color: white;
       padding: 0 5rem;
+      @include xs {
+        padding: 0 2rem;
+      }
       border-radius: 0.3rem;
       -webkit-border-radius: 0.3rem;
       -moz-border-radius: 0.3rem;
