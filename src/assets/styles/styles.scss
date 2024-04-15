@@ -1,9 +1,9 @@
-@use 'base';
-@use 'classes';
+@use 'base' as *;
+@use 'classes' as *;
 @use 'media-queries' as *;
-@use 'reset';
-@use 'utils';
-@use 'variables';
+@use 'reset' as *;
+@use 'utils' as *;
+@use 'variables' as *;
 
 .container {
   min-height: 100vh;
@@ -33,8 +33,12 @@ header {
     font-weight: 700;
   }
 
-  nav {
+  nav.header-menu {
+    position: relative;
     ul {
+      @include xs {
+        display: none;
+      }
       display: flex;
       li {
         .header-nav {
@@ -46,6 +50,39 @@ header {
           text-decoration: underline;
         }
       }
+    }
+
+    .header-menu-icon {
+      display: none;
+      font-size: 3rem;
+      @include xs {
+        display: block;
+      }
+    }
+
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 6.5rem;
+      right: -2rem;
+      padding: 3rem 1.5rem;
+      width: 20rem;
+      background-color: var(--default-light-color);
+      box-shadow: var(--box-shadow);
+
+      ul{
+        display: block;
+        li{
+          margin: 1rem 0;
+          a{
+            color: var(--text-color);
+          }
+        }
+      }
+    }
+
+    .mobile-menu.open {
+      display: block;
     }
   }
 }
