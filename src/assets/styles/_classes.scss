@@ -43,6 +43,17 @@
     background-color: var(--default-light-color);
     color: var(--primary-color);
   }
+  
+  &-danger{
+    border: 1px solid var(--error-color);
+    background-color: var(--default-light-color);
+    color: var(--error-color);
+
+    &:hover {
+      background-color: var(--error-color);
+      color: var(--default-light-color);
+    }
+  }
 }
 
 .text{
