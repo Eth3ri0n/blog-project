@@ -35,7 +35,7 @@ FORM.addEventListener('submit', async (event) => {
     if (FORM_IS_VALID(OBJECTDATA)) {
         try {
             const JSONDATA = JSON.stringify(OBJECTDATA);
-            const RESPONSE = await fetch('https://restapi.fr/api/articles', {
+            const RESPONSE = await fetch('https://restapi.fr/api/blog', {
                 method: 'POST',
                 body: JSONDATA,
                 headers: {
@@ -57,7 +57,7 @@ FORM.addEventListener('submit', async (event) => {
  * @returns {boolean} - Returns true if the form data is valid, otherwise false.
  */
 const FORM_IS_VALID = (data) => {
-    if (!data.title || !data.category || !data.content || !data.author) {
+    if (!data.title || !data.image_profile || !data.author || !data.category || !data.content) {
         errors.push('All fields are required.');
     } else {
         errors = [];
