@@ -54,6 +54,27 @@
         }
       }
 
+      .article-infos {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-around;
+        align-items: center;
+        margin-bottom: 3rem;
+        max-width: 80rem;
+        width: 100%;
+
+        .article-category {
+          margin-bottom: 3rem;
+          font-weight: bold;
+          color: var(--accent-color);
+        }
+        
+        .article-date {
+          margin-bottom: 3rem;
+          color: var(--hint-color);
+        }
+      }
+
       .article-content {
         max-width: 550px;
         border-bottom: 1px solid var(--divider-color);
