@@ -18,11 +18,17 @@ const FORM = document.querySelector('.form');
  */
 const ERRORELEMENT = document.querySelector('#errors');
 
+const CANCELBUTTON = document.querySelector('.btn-accent');
+
 /**
  * An array to store error messages.
  * @type {Array<string>}
  */
 let errors = [];
+
+CANCELBUTTON.addEventListener('click', () => {
+    window.location.assign('/index.html');
+});
 
 /**
  * Event listener for form submission.
@@ -43,6 +49,9 @@ FORM.addEventListener('submit', async (event) => {
                     'Content-Type': 'application/json',
                 },
             });
+            if(RESPONSE.status < 299) {
+                window.location.assign('/index.html');
+            }
             const DATA = await RESPONSE.json();
         } catch (error) {
             console.error('error :', error);
@@ -56,7 +65,14 @@ FORM.addEventListener('submit', async (event) => {
  * @param {Object} data - The form data object.
  * @returns {boolean} - Returns true if the form data is valid, otherwise false.
  */
+/**
+ * Checks if the form data is valid.
+ *
+ * @param {Object} data - The form data to be validated.
+ * @returns {boolean} - Returns true if the form data is valid, otherwise false.
+ */
 const FORM_IS_VALID = (data) => {
+    errors = [];
     if (!data.title || !data.image_profile || !data.author || !data.category || !data.content) {
         errors.push('All fields are required.');
     } else {
