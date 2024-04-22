@@ -5,6 +5,11 @@ import '/assets/js/topbar.js';
 const ARTICLECONTAINERELEMENT = document.querySelector('.articles-container');
 
 // Create articles.
+/**
+ * Creates and renders articles on the webpage.
+ * 
+ * @param {Array} articles - An array of article objects.
+ */
 const createArticles = (articles) => {
   const articlesDOM = articles.map((article) => {
     const articleDOM = document.createElement('div');
@@ -15,7 +20,15 @@ const createArticles = (articles) => {
         <img src="${article.image_profile}" alt="profile" />
         <p class="article-author">${article.author}</p>
         </div>
-        <p>Categories: ${article.category}</p>
+        <div class="article-infos">
+        <p class="article-category">Categories : ${article.category}</p>
+        <p class="article-date">Published on - ${(new Date(article.createdAt)).toLocaleDateString("en-US", {
+          weekday: 'long',
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric',
+        })}</p>
+        </div>
         <article class="article-content">${article.content}</article>
         <div class="article-actions">
         <button class="btn btn-danger" data-id=${article._id}>Delete</button>
