@@ -2,7 +2,7 @@ import './assets/styles/styles.scss';
 import './index.scss';
 import '/assets/js/topbar.js';
 
-const ARTICLECONTAINERELEMENT = document.querySelector('.articles-container');
+const ARTICLE_CONTAINER_ELEMENT = document.querySelector('.articles-container');
 
 // Create articles.
 /**
@@ -10,11 +10,11 @@ const ARTICLECONTAINERELEMENT = document.querySelector('.articles-container');
  * 
  * @param {Array} articles - An array of article objects.
  */
-const createArticles = (articles) => {
-  const articlesDOM = articles.map((article) => {
-    const articleDOM = document.createElement('div');
-    articleDOM.classList.add('article');
-    articleDOM.innerHTML = `
+const CREATE_ARTICLES = (articles) => {
+  const ARTICLES_DOM = articles.map((article) => {
+    const ARTICLE_DOM = document.createElement('div');
+    ARTICLE_DOM.classList.add('article');
+    ARTICLE_DOM.innerHTML = `
         <h2>${article.title}</h2>
         <div class="author-infos">
         <img src="${article.image_profile}" alt="profile" />
@@ -35,14 +35,14 @@ const createArticles = (articles) => {
         <button class="btn btn-primary">Edit</button>
         </div>
         `;
-    return articleDOM;
+    return ARTICLE_DOM;
   });
-  ARTICLECONTAINERELEMENT.innerHTML = '';
-  ARTICLECONTAINERELEMENT.append(...articlesDOM);
+  ARTICLE_CONTAINER_ELEMENT.innerHTML = '';
+  ARTICLE_CONTAINER_ELEMENT.append(...ARTICLES_DOM);
 
   // Add event listeners to delete buttons.
-  const deleteButtons = ARTICLECONTAINERELEMENT.querySelectorAll('.btn-danger');
-  deleteButtons.forEach((button) => {
+  const DELETE_BUTTONS = ARTICLE_CONTAINER_ELEMENT.querySelectorAll('.btn-danger');
+  DELETE_BUTTONS.forEach((button) => {
     button.addEventListener('click', async (event) => {
       try {
         const target = event.target;
@@ -54,9 +54,11 @@ const createArticles = (articles) => {
           }
         );
         const body = await response.json();
+        console.log(body);
+
         fetchArticle();
-      } catch (error) {
-        console.error('error :', error);
+      } catch (e) {
+        console.log('error :', e);
       }
     });
   });
@@ -66,13 +68,13 @@ const createArticles = (articles) => {
 const fetchArticle = async () => {
   try {
     const response = await fetch('https://restapi.fr/api/blog');
-    const articles = await response.json();
+    let articles = await response.json();
     if (!Array.isArray(articles)) {
       articles = [articles];
     }
-    createArticles(articles);
-  } catch (error) {
-    console.error('error : ', error);
+    CREATE_ARTICLES(articles);
+  } catch (e) {
+    console.log('error : ', e);
   }
 };
 
