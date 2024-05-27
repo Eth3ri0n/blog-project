@@ -32,7 +32,7 @@ const CREATE_ARTICLES = (articles) => {
         <article class="article-content">${article.content}</article>
         <div class="article-actions">
         <button class="btn btn-danger" data-id=${article._id}>Delete</button>
-        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-primary" data-id=${article._id}>Edit</button>
         </div>
         `;
     return ARTICLE_DOM;
@@ -45,36 +45,47 @@ const CREATE_ARTICLES = (articles) => {
   DELETE_BUTTONS.forEach((button) => {
     button.addEventListener('click', async (event) => {
       try {
-        const target = event.target;
-        const articleId = target.dataset.id;
-        const response = await fetch(
-          `https://restapi.fr/api/blog/${articleId}`,
+        const TARGET = event.target;
+        const ARTICLE_ID = TARGET.dataset.id;
+        const RESPONSE = await fetch(
+          `https://restapi.fr/api/blog/${ARTICLE_ID}`,
           {
             method: 'DELETE',
           }
         );
-        const body = await response.json();
+        const body = await RESPONSE.json();
         console.log(body);
 
         fetchArticle();
-      } catch (e) {
-        console.log('error :', e);
+      } catch (error) {
+        console.log('error :', error);
       }
     });
   });
+
+  // Add event listeners to edit buttons.
+  const EDIT_BUTTONS = ARTICLE_CONTAINER_ELEMENT.querySelectorAll('.btn-primary');
+  EDIT_BUTTONS.forEach((button) => {
+    button.addEventListener('click', async (event) => {
+        const TARGET = event.target;
+        const ARTICLE_ID = TARGET.dataset.id;
+        window.location.assign(`/form/form.html?id=${ARTICLE_ID}`);
+    });
+  });
+
 };
 
 // Fetch articles from the API.
 const fetchArticle = async () => {
   try {
-    const response = await fetch('https://restapi.fr/api/blog');
-    let articles = await response.json();
+    const RESPONSE = await fetch('https://restapi.fr/api/blog');
+    let articles = await RESPONSE.json();
     if (!Array.isArray(articles)) {
       articles = [articles];
     }
     CREATE_ARTICLES(articles);
-  } catch (e) {
-    console.log('error : ', e);
+  } catch (error) {
+    console.log('error : ', error);
   }
 };
 
