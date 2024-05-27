@@ -49,10 +49,12 @@ FORM.addEventListener('submit', async (event) => {
                     'Content-Type': 'application/json',
                 },
             });
+            const DATA = await RESPONSE.json();
+            console.log(DATA);
+            
             if(RESPONSE.status < 299) {
                 window.location.assign('/index.html');
             }
-            const DATA = await RESPONSE.json();
         } catch (error) {
             console.error('error :', error);
         }
