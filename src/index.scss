@@ -3,11 +3,51 @@
 .content {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 5rem;
+
+  .sidebar {
+    flex: 0 0 25rem;
+    padding: 0 2rem 2rem 2rem;
+
+    ul.categories {
+      padding: 2rem;
+      background-color: var(--default-light-color);
+      border-radius: 0.3rem;
+      -webkit-border-radius: 0.3rem;
+      -moz-border-radius: 0.3rem;
+      -ms-border-radius: 0.3rem;
+      -o-border-radius: 0.3rem;
+      box-shadow: var(--box-shadow);
+
+      li {
+        margin: 1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        &:hover {
+          color: var(--primary-color);
+          text-decoration: underline;
+          text-decoration-thickness: 2px;
+          text-decoration-color: var(--primary-dark-color);
+          -moz-text-decoration-color: var(--primary-dark-color);
+          -webkit-text-decoration-color: var(--primary-dark-color);
+        
+          strong {
+            color: var(--primary-color);
+          }
+        }
+      }
+    }
+  }
 
   .articles-container {
-    max-width: 800px;
-    width: 100%;
+    max-width: 80rem;
+    flex: 1;
+    margin-bottom: 5rem;
 
     .article {
       background-color: white;
@@ -24,8 +64,6 @@
       flex-direction: column;
       align-items: center;
       box-shadow: var(--box-shadow);
-      margin-top: 3rem;
-      margin-bottom: 5rem;
 
       h2 {
         text-align: center;
@@ -68,7 +106,7 @@
           font-weight: bold;
           color: var(--accent-color);
         }
-        
+
         .article-date {
           margin-bottom: 3rem;
           color: var(--hint-color);
