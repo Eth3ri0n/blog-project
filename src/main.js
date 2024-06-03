@@ -5,17 +5,28 @@ import '/assets/js/topbar.js';
 const ARTICLE_CONTAINER_ELEMENT = document.querySelector('.articles-container');
 const MENU_CATEGORIES_CONTAINER_ELEMENT = document.querySelector('.categories');
 
+let Filter;
+let articles;
+
 // Create articles.
 /**
  * Creates and renders articles on the webpage.
  *
  * @param {Array} articles - An array of article objects.
  */
-const CREATE_ARTICLES = (articles) => {
-  const ARTICLES_DOM = articles.map((article) => {
-    const ARTICLE_DOM = document.createElement('div');
-    ARTICLE_DOM.classList.add('article');
-    ARTICLE_DOM.innerHTML = `
+const CREATE_ARTICLES = () => {
+  const ARTICLES_DOM = articles
+    .filter((article) => {
+      if (Filter) {
+        return article.category === Filter;
+      } else {
+        return true;
+      }
+    })
+    .map((article) => {
+      const ARTICLE_DOM = document.createElement('div');
+      ARTICLE_DOM.classList.add('article');
+      ARTICLE_DOM.innerHTML = `
         <h2>${article.title}</h2>
         <div class="author-infos">
         <img src="${article.image_profile}" alt="profile" />
@@ -38,8 +49,8 @@ const CREATE_ARTICLES = (articles) => {
         <button class="btn btn-primary" data-id=${article._id}>Edit</button>
         </div>
         `;
-    return ARTICLE_DOM;
-  });
+      return ARTICLE_DOM;
+    });
   ARTICLE_CONTAINER_ELEMENT.innerHTML = '';
   ARTICLE_CONTAINER_ELEMENT.append(...ARTICLES_DOM);
 
@@ -85,6 +96,20 @@ const DISPLAY_MENU_CATEGORIES = (CATEGORIES_ARRAY) => {
     LI_ELEMENT.innerHTML = `
         <li>${categoryElement[0]} ( <strong>${categoryElement[1]}</strong> )</li>
         `;
+    LI_ELEMENT.addEventListener('click', () => {
+      if (Filter === categoryElement[0]) {
+        Filter = null;
+        LI_ELEMENT.classList.remove('active');
+        CREATE_ARTICLES();
+      } else {
+        Filter = categoryElement[0];
+        LI_ELEMENTS.forEach((li) => {
+          li.classList.remove('active');
+        });
+        LI_ELEMENT.classList.add('active');
+        CREATE_ARTICLES();
+      }
+    });
     return LI_ELEMENT;
   });
 
@@ -93,7 +118,7 @@ const DISPLAY_MENU_CATEGORIES = (CATEGORIES_ARRAY) => {
 };
 
 // Create menu categories.
-const CREATE_MENU_CATEGORIES = (articles) => {
+const CREATE_MENU_CATEGORIES = () => {
   const CATEGORIES = articles.reduce((accumulator, article) => {
     if (accumulator[article.category]) {
       accumulator[article.category]++;
@@ -103,9 +128,11 @@ const CREATE_MENU_CATEGORIES = (articles) => {
     return accumulator;
   }, {});
 
-  const CATEGORIES_ARRAY = Object.keys(CATEGORIES).map((category) => {
-    return [category, CATEGORIES[category]];
-  });
+  const CATEGORIES_ARRAY = Object.keys(CATEGORIES)
+    .map((category) => {
+      return [category, CATEGORIES[category]];
+    })
+    .sort((a, b) => a[0].localeCompare(b[0]));
 
   DISPLAY_MENU_CATEGORIES(CATEGORIES_ARRAY);
 };
@@ -114,12 +141,12 @@ const CREATE_MENU_CATEGORIES = (articles) => {
 const fetchArticle = async () => {
   try {
     const RESPONSE = await fetch('https://restapi.fr/api/blog');
-    let articles = await RESPONSE.json();
+    articles = await RESPONSE.json();
     if (!Array.isArray(articles)) {
       articles = [articles];
     }
-    CREATE_ARTICLES(articles);
-    CREATE_MENU_CATEGORIES(articles);
+    CREATE_ARTICLES();
+    CREATE_MENU_CATEGORIES();
   } catch (error) {
     console.log('error : ', error);
   }
