@@ -3,11 +3,12 @@ import './index.scss';
 import '/assets/js/topbar.js';
 
 const ARTICLE_CONTAINER_ELEMENT = document.querySelector('.articles-container');
+const MENU_CATEGORIES_CONTAINER_ELEMENT = document.querySelector('.categories');
 
 // Create articles.
 /**
  * Creates and renders articles on the webpage.
- * 
+ *
  * @param {Array} articles - An array of article objects.
  */
 const CREATE_ARTICLES = (articles) => {
@@ -22,7 +23,9 @@ const CREATE_ARTICLES = (articles) => {
         </div>
         <div class="article-infos">
         <p class="article-category">Categories : ${article.category}</p>
-        <p class="article-date">Published on - ${(new Date(article.createdAt)).toLocaleDateString("en-US", {
+        <p class="article-date">Published on - ${new Date(
+          article.createdAt
+        ).toLocaleDateString('en-US', {
           weekday: 'long',
           day: '2-digit',
           month: 'long',
@@ -41,7 +44,8 @@ const CREATE_ARTICLES = (articles) => {
   ARTICLE_CONTAINER_ELEMENT.append(...ARTICLES_DOM);
 
   // Add event listeners to delete buttons.
-  const DELETE_BUTTONS = ARTICLE_CONTAINER_ELEMENT.querySelectorAll('.btn-danger');
+  const DELETE_BUTTONS =
+    ARTICLE_CONTAINER_ELEMENT.querySelectorAll('.btn-danger');
   DELETE_BUTTONS.forEach((button) => {
     button.addEventListener('click', async (event) => {
       try {
@@ -64,15 +68,46 @@ const CREATE_ARTICLES = (articles) => {
   });
 
   // Add event listeners to edit buttons.
-  const EDIT_BUTTONS = ARTICLE_CONTAINER_ELEMENT.querySelectorAll('.btn-primary');
+  const EDIT_BUTTONS =
+    ARTICLE_CONTAINER_ELEMENT.querySelectorAll('.btn-primary');
   EDIT_BUTTONS.forEach((button) => {
     button.addEventListener('click', async (event) => {
-        const TARGET = event.target;
-        const ARTICLE_ID = TARGET.dataset.id;
-        window.location.assign(`/form/form.html?id=${ARTICLE_ID}`);
+      const TARGET = event.target;
+      const ARTICLE_ID = TARGET.dataset.id;
+      window.location.assign(`/form/form.html?id=${ARTICLE_ID}`);
     });
   });
+};
 
+const DISPLAY_MENU_CATEGORIES = (CATEGORIES_ARRAY) => {
+  const LI_ELEMENTS = CATEGORIES_ARRAY.map((categoryElement) => {
+    const LI_ELEMENT = document.createElement('li');
+    LI_ELEMENT.innerHTML = `
+        <li>${categoryElement[0]} ( <strong>${categoryElement[1]}</strong> )</li>
+        `;
+    return LI_ELEMENT;
+  });
+
+  MENU_CATEGORIES_CONTAINER_ELEMENT.innerHTML = '';
+  MENU_CATEGORIES_CONTAINER_ELEMENT.append(...LI_ELEMENTS);
+};
+
+// Create menu categories.
+const CREATE_MENU_CATEGORIES = (articles) => {
+  const CATEGORIES = articles.reduce((accumulator, article) => {
+    if (accumulator[article.category]) {
+      accumulator[article.category]++;
+    } else {
+      accumulator[article.category] = 1;
+    }
+    return accumulator;
+  }, {});
+
+  const CATEGORIES_ARRAY = Object.keys(CATEGORIES).map((category) => {
+    return [category, CATEGORIES[category]];
+  });
+
+  DISPLAY_MENU_CATEGORIES(CATEGORIES_ARRAY);
 };
 
 // Fetch articles from the API.
@@ -84,6 +119,7 @@ const fetchArticle = async () => {
       articles = [articles];
     }
     CREATE_ARTICLES(articles);
+    CREATE_MENU_CATEGORIES(articles);
   } catch (error) {
     console.log('error : ', error);
   }
