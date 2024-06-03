@@ -28,6 +28,7 @@
         -moz-transition: all 0.3s;
         -ms-transition: all 0.3s;
         -o-transition: all 0.3s;
+        position: relative;
         &:hover {
           color: var(--primary-color);
           text-decoration: underline;
@@ -35,10 +36,33 @@
           text-decoration-color: var(--primary-dark-color);
           -moz-text-decoration-color: var(--primary-dark-color);
           -webkit-text-decoration-color: var(--primary-dark-color);
-        
+
           strong {
             color: var(--primary-color);
           }
+        }
+      }
+      .active::before {
+        content: '';
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-right: 0.5rem;
+        position: absolute;
+        left: -1rem;
+        width: 0.25rem;
+        height: 100%;
+        background-color: var(--primary-color);
+      }
+      .active {
+        color: var(--primary-color);
+        font-weight: 700;
+        transition: all 0.3s;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        strong {
+          color: var(--primary-color);
         }
       }
     }
@@ -47,7 +71,7 @@
   .articles-container {
     max-width: 80rem;
     flex: 1;
-    
+
     .article {
       background-color: white;
       padding: 0 5rem;
