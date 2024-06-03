@@ -47,11 +47,11 @@
   .articles-container {
     max-width: 80rem;
     flex: 1;
-    margin-bottom: 5rem;
-
+    
     .article {
       background-color: white;
       padding: 0 5rem;
+      margin-bottom: 5rem;
       @include xs {
         padding: 0 2rem;
       }
