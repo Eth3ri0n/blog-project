@@ -4,9 +4,16 @@ import '/assets/js/topbar.js';
 
 const ARTICLE_CONTAINER_ELEMENT = document.querySelector('.articles-container');
 const MENU_CATEGORIES_CONTAINER_ELEMENT = document.querySelector('.categories');
+const SELECT_ELEMENT = document.querySelector('select');
 
 let Filter;
 let articles;
+let SortBy = 'desc';
+
+SELECT_ELEMENT.addEventListener('change', () => {
+  SortBy = SELECT_ELEMENT.value;
+  fetchArticle();
+});
 
 // Create articles.
 /**
@@ -92,25 +99,28 @@ const CREATE_ARTICLES = () => {
 
 const DISPLAY_MENU_CATEGORIES = (CATEGORIES_ARRAY) => {
   const LI_ELEMENTS = CATEGORIES_ARRAY.map((categoryElement) => {
-    const LI_ELEMENT = document.createElement('li');
-    LI_ELEMENT.innerHTML = `
-        <li>${categoryElement[0]} ( <strong>${categoryElement[1]}</strong> )</li>
+    const li = document.createElement('li');
+    li.innerHTML = `
+        ${categoryElement[0]} ( <strong>${categoryElement[1]}</strong> )
         `;
-    LI_ELEMENT.addEventListener('click', () => {
+    if (categoryElement[0] === Filter) {
+      li.classList.add('active');
+    }
+    li.addEventListener('click', () => {
       if (Filter === categoryElement[0]) {
         Filter = null;
-        LI_ELEMENT.classList.remove('active');
+        li.classList.remove('active');
         CREATE_ARTICLES();
       } else {
         Filter = categoryElement[0];
         LI_ELEMENTS.forEach((li) => {
           li.classList.remove('active');
         });
-        LI_ELEMENT.classList.add('active');
+        li.classList.add('active');
         CREATE_ARTICLES();
       }
     });
-    return LI_ELEMENT;
+    return li;
   });
 
   MENU_CATEGORIES_CONTAINER_ELEMENT.innerHTML = '';
@@ -140,7 +150,9 @@ const CREATE_MENU_CATEGORIES = () => {
 // Fetch articles from the API.
 const fetchArticle = async () => {
   try {
-    const RESPONSE = await fetch('https://restapi.fr/api/blog');
+    const RESPONSE = await fetch(
+      `https://restapi.fr/api/blog?sort=createdAt:${SortBy}`
+    );
     articles = await RESPONSE.json();
     if (!Array.isArray(articles)) {
       articles = [articles];
