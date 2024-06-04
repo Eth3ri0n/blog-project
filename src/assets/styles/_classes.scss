@@ -43,8 +43,8 @@
     background-color: var(--default-light-color);
     color: var(--primary-color);
   }
-  
-  &-danger{
+
+  &-danger {
     border: 1px solid var(--error-color);
     background-color: var(--default-light-color);
     color: var(--error-color);
@@ -56,8 +56,43 @@
   }
 }
 
-.text{
+.text {
   &-error {
     color: var(--error-color);
+  }
+}
+
+/* Modal */
+.calc {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal {
+    background-color: var(--default-light-color);
+    min-width: 30rem;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    padding: 5rem;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+
+    h5 {
+      margin: 1rem 0 3rem 0;
+    }
+
+    .btn {
+      margin-left: 1rem;
+    }
+    
   }
 }
