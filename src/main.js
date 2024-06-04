@@ -1,6 +1,7 @@
 import './assets/styles/styles.scss';
 import './index.scss';
 import '/assets/js/topbar.js';
+import { Confirm_Open_Modal } from '/assets/js/modal.js';
 
 const ARTICLE_CONTAINER_ELEMENT = document.querySelector('.articles-container');
 const MENU_CATEGORIES_CONTAINER_ELEMENT = document.querySelector('.categories');
@@ -66,21 +67,26 @@ const CREATE_ARTICLES = () => {
     ARTICLE_CONTAINER_ELEMENT.querySelectorAll('.btn-danger');
   DELETE_BUTTONS.forEach((button) => {
     button.addEventListener('click', async (event) => {
-      try {
-        const TARGET = event.target;
-        const ARTICLE_ID = TARGET.dataset.id;
-        const RESPONSE = await fetch(
-          `https://restapi.fr/api/blog/${ARTICLE_ID}`,
-          {
-            method: 'DELETE',
-          }
-        );
-        const body = await RESPONSE.json();
-        console.log(body);
+      const CONFIRMATION = await Confirm_Open_Modal(
+        'Are you sure you want to delete this article ?'
+      );
+      if (CONFIRMATION === true) {
+        try {
+          const TARGET = event.target;
+          const ARTICLE_ID = TARGET.dataset.id;
+          const RESPONSE = await fetch(
+            `https://restapi.fr/api/blog/${ARTICLE_ID}`,
+            {
+              method: 'DELETE',
+            }
+          );
+          const body = await RESPONSE.json();
+          console.log(body);
 
-        fetchArticle();
-      } catch (error) {
-        console.log('error :', error);
+          fetchArticle();
+        } catch (error) {
+          console.log('error :', error);
+        }
       }
     });
   });
