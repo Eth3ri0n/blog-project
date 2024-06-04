@@ -10,6 +10,21 @@
     flex: 0 0 25rem;
     padding: 0 2rem 2rem 2rem;
 
+    select {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      border: none;
+      border-radius: 0.3rem;
+      -webkit-border-radius: 0.3rem;
+      -moz-border-radius: 0.3rem;
+      -ms-border-radius: 0.3rem;
+      -o-border-radius: 0.3rem;
+      box-shadow: var(--box-shadow);
+      background-color: var(--default-light-color);
+      outline: none;
+    }
+
     ul.categories {
       padding: 2rem;
       background-color: var(--default-light-color);
