@@ -5,6 +5,7 @@
 import '../assets/styles/styles.scss';
 import './form.scss';
 import '/assets/js/topbar';
+import { Confirm_Open_Modal } from '/assets/js/modal';
 
 let ArticleId;
 
@@ -24,10 +25,16 @@ const ERRORELEMENT = document.querySelector('#errors');
 const CANCELBUTTON = document.querySelector('.btn-accent');
 
 // Event listener for the cancel button.
-CANCELBUTTON.addEventListener('click', () => {
-  window.location.assign('/index.html');
+CANCELBUTTON.addEventListener('click', async () => {
+  const CONFIRMATION = await Confirm_Open_Modal(
+    `Are you sure you want to cancel ? <br><br> <span class="text-error">All changes will be lost.</span>`
+  );
+  if (CONFIRMATION) {
+    window.location.assign('/index.html');
+  }
 });
 
+// Function to fill the form with the article data.
 const FILL_FORM = (article) => {
   // Get the form elements.
   const TITLE = document.querySelector('input[name="title"]');
@@ -44,6 +51,7 @@ const FILL_FORM = (article) => {
   CONTENT.value = article.content || '';
 };
 
+// Function to initialize the form.
 const INIT_FORM = async () => {
   // Get the article id from the URL.
   const PARAMS = new URL(window.location.href);
